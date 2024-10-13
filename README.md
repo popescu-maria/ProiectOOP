@@ -1,4 +1,4 @@
-## Papers, Please::Cats Apocalipse
+## Papers, Please:: Cats Apocalipse
 
 ### Important!
 Aveți voie cu cod generat de modele de limbaj la care nu ați contribuit semnificativ doar în folder-ul `generated`.
