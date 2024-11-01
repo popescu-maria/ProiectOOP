@@ -15,23 +15,11 @@ include(cmake/Options.cmake)
 
 ###############################################################################
 
-# external dependencies with FetchContent
-# include(FetchContent)
-#
-# set(FETCHCONTENT_QUIET OFF)
-# set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
-#
-# NOTE: Also update env vars used for caching in
-#         - .github/actions/configure-cmake/action.yml
-#         - .github/workflows/cmake.yml
-# FetchContent_Declare(
-#         SomeLib
-#         GIT_REPOSITORY https://github.com/<SomeUser>/<SomeLib>.git
-#         GIT_TAG        <some_git_hash> # <which tag/branch @ <some_date>>
-#         GIT_SHALLOW    1  # works only with branches or tags, not with arbitrary commit hashes
-# )
-#
-# FetchContent_MakeAvailable(SomeLib)
+# Set the SFML_DIR to point to the submodule's CMake directory
+set(SFML_DIR "${CMAKE_SOURCE_DIR}/external/SFML/lib/cmake/SFML")
+
+# Find the SFML package
+find_package(SFML 2.6.1 COMPONENTS system window graphics REQUIRED)
 
 ###############################################################################
 
@@ -45,7 +33,17 @@ include(cmake/Options.cmake)
 add_executable(${PROJECT_NAME}
     main.cpp
     generated/src/Helper.cpp
+        Cat.h
+        pasaport.h
+        Cat.cpp
+        pasaport.cpp
+        FakeCat.cpp
+        FakeCat.h
 )
+
+# Link SFML libraries to your project
+target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics sfml-window sfml-system)
+
 
 include(cmake/CompilerFlags.cmake)
 
