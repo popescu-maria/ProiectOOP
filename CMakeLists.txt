@@ -15,9 +15,6 @@ include(cmake/Options.cmake)
 
 ###############################################################################
 
-set(SFML_STATIC_LIBRARIES TRUE)
-set(SFML_DIR "C:/libraries/SFML/lib/cmake/SFML")
-find_package(SFML COMPONENTS system window graphics audio network REQUIRED)
 
 # external dependencies with FetchContent
 # include(FetchContent)
@@ -58,10 +55,6 @@ add_executable(${PROJECT_NAME}
 )
 
 include(cmake/CompilerFlags.cmake)
-target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml-audio)
-
-# Include Directories
-target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE generated/include)
 
 ###############################################################################
 
