@@ -15,11 +15,27 @@ include(cmake/Options.cmake)
 
 ###############################################################################
 
-# Set the SFML_DIR to point to the submodule's CMake directory
-set(SFML_DIR "${CMAKE_SOURCE_DIR}/external/SFML/lib/cmake/SFML")
+set(SFML_STATIC_LIBRARIES TRUE)
+set(SFML_DIR "C:/libraries/SFML/lib/cmake/SFML")
+find_package(SFML COMPONENTS system window graphics audio network REQUIRED)
 
-# Find the SFML package
-find_package(SFML 2.6.1 COMPONENTS system window graphics REQUIRED)
+# external dependencies with FetchContent
+# include(FetchContent)
+#
+# set(FETCHCONTENT_QUIET OFF)
+# set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
+#
+# NOTE: Also update env vars used for caching in
+#         - .github/actions/configure-cmake/action.yml
+#         - .github/workflows/cmake.yml
+# FetchContent_Declare(
+#         SomeLib
+#         GIT_REPOSITORY https://github.com/<SomeUser>/<SomeLib>.git
+#         GIT_TAG        <some_git_hash> # <which tag/branch @ <some_date>>
+#         GIT_SHALLOW    1  # works only with branches or tags, not with arbitrary commit hashes
+# )
+#
+# FetchContent_MakeAvailable(SomeLib)
 
 ###############################################################################
 
@@ -41,11 +57,11 @@ add_executable(${PROJECT_NAME}
         FakeCat.h
 )
 
-# Link SFML libraries to your project
-target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics sfml-window sfml-system)
-
-
 include(cmake/CompilerFlags.cmake)
+target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml-audio)
+
+# Include Directories
+target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE generated/include)
 
 ###############################################################################
 
